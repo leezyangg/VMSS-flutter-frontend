@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Colors.blue,
           ),
-          initialRoute: '/productinfo',
+          initialRoute: '/',
           onGenerateRoute: MyRouter.generateRoute,
         );
       },
