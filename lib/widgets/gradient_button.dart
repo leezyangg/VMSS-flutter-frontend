@@ -31,3 +31,34 @@ class BlueGradientButton extends StatelessWidget {
     );
   }
 }
+
+class PurpleGradientButton extends StatelessWidget {
+  final String buttonText;
+  const PurpleGradientButton({super.key, required this.buttonText});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Color.fromRGBO(152, 129, 220, 1),
+          Color.fromRGBO(197, 29, 150, 1),
+        ]),
+      ),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            minimumSize: const Size(350, 55),
+            backgroundColor: Colors.transparent),
+        child: Text(
+          buttonText,
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: 17,
+          ),
+        ),
+      ),
+    );
+  }
+}

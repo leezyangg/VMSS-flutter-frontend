@@ -1,51 +1,142 @@
-import 'dart:typed_data';
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+// import 'dart:typed_data';
+// import 'package:flutter/material.dart';
+// import 'package:mobile_scanner/mobile_scanner.dart';
 
-class MobileScannerPage extends StatefulWidget {
-  const MobileScannerPage({Key? key}) : super(key: key);
+// class MobileScannerPage extends StatefulWidget {
+//   const MobileScannerPage({Key? key}) : super(key: key);
 
-  @override
-  _MobileScannerPageState createState() => _MobileScannerPageState();
-}
+//   @override
+//   State<MobileScannerPage> createState() => _MobileScannerPageState();
+// }
 
-class _MobileScannerPageState extends State<MobileScannerPage> {
-  MobileScannerController cameraController = MobileScannerController();
+// class _MobileScannerPageState extends State<MobileScannerPage> {
+//   MobileScannerController cameraController = MobileScannerController();
+//   bool _screenOpened = false;
 
-  @override
-  void dispose() {
-    cameraController.dispose();
-    super.dispose();
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text("Mobile Scanner"),
+//         actions: [
+//           IconButton(
+//             color: Colors.white,
+//             icon: ValueListenableBuilder(
+//               valueListenable: cameraController.torchState,
+//               builder: (context, state, child) {
+//                 switch (state as TorchState) {
+//                   case TorchState.off:
+//                     return const Icon(Icons.flash_off, color: Colors.grey);
+//                   case TorchState.on:
+//                     return const Icon(Icons.flash_on, color: Colors.yellow);
+//                 }
+//               },
+//             ),
+//             iconSize: 32.0,
+//             onPressed: () => cameraController.toggleTorch(),
+//           ),
+//           IconButton(
+//             color: Colors.white,
+//             icon: ValueListenableBuilder(
+//               valueListenable: cameraController.cameraFacingState,
+//               builder: (context, state, child) {
+//                 switch (state as CameraFacing) {
+//                   case CameraFacing.front:
+//                     return const Icon(Icons.camera_front);
+//                   case CameraFacing.back:
+//                     return const Icon(Icons.camera_rear);
+//                 }
+//               },
+//             ),
+//             iconSize: 32.0,
+//             onPressed: () => cameraController.switchCamera(),
+//           ),
+//         ],
+//       ),
+//       body: MobileScanner(
+        
+//         allowDuplicates: true,
+//         controller: cameraController,
+//         onDetect: _foundBarcode,
+//       ),
+//     );
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Mobile Scanner')),
-      body: MobileScanner(
-        fit: BoxFit.contain,
-        controller: MobileScannerController(
-          // facing: CameraFacing.back,
-          // torchEnabled: false,
-          returnImage: true,
-        ),
-        onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          final Uint8List? image = capture.image;
-          for (final barcode in barcodes) {
-            debugPrint('Barcode found! ${barcode.rawValue}');
-          }
-          if (image != null) {
-            showDialog(
-              context: context,
-              builder: (context) => Image(image: MemoryImage(image)),
-            );
-            Future.delayed(const Duration(seconds: 5), () {
-              Navigator.pop(context);
-            });
-          }
-        },
-      ),
-    );
-  }
-}
+//   void _foundBarcode(Barcode barcode, MobileScannerArguments? args) {
+//     /// open screen
+//     if (!_screenOpened) {
+//       final String code = barcode.rawValue ?? "---";
+//       debugPrint('Barcode found! $code');
+//       _screenOpened = true;
+//       Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) =>
+//                 FoundCodeScreen(screenClosed: _screenWasClosed, value: code),
+//           ));
+//     }
+//   }
+
+//   void _screenWasClosed() {
+//     _screenOpened = false;
+//   }
+// }
+
+// class FoundCodeScreen extends StatefulWidget {
+//   final String value;
+//   final Function() screenClosed;
+//   const FoundCodeScreen({
+//     Key? key,
+//     required this.value,
+//     required this.screenClosed,
+//   }) : super(key: key);
+
+//   @override
+//   State<FoundCodeScreen> createState() => _FoundCodeScreenState();
+// }
+
+// class _FoundCodeScreenState extends State<FoundCodeScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Found Code"),
+//         centerTitle: true,
+//         leading: IconButton(
+//           onPressed: () {
+//             widget.screenClosed();
+//             Navigator.pop(context);
+//           },
+//           icon: Icon(
+//             Icons.arrow_back_outlined,
+//           ),
+//         ),
+//       ),
+//       body: Center(
+//         child: Padding(
+//           padding: EdgeInsets.all(20),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Text(
+//                 "Scanned Code:",
+//                 style: TextStyle(
+//                   fontSize: 20,
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 20,
+//               ),
+//               Text(
+//                 widget.value,
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
