@@ -14,7 +14,9 @@ class SupplierMainPage extends StatelessWidget {
         actions: <Widget>[
           // logout button
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/');
+            },
             icon: const Icon(
               Icons.logout_rounded,
               color: Colors.black,

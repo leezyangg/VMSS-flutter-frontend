@@ -1,12 +1,14 @@
 import "package:flutter/material.dart";
 import 'package:vemdora_flutter_frontend/screens/Supplier/supplier_main_page.dart';
 import 'package:vemdora_flutter_frontend/screens/Supplier/supplier_update_list.dart';
+import 'package:vemdora_flutter_frontend/screens/Supplier/update_successful.dart';
+import 'package:vemdora_flutter_frontend/screens/User/order_list.dart';
+import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
 import 'package:vemdora_flutter_frontend/screens/User/wallet_page.dart';
 import 'package:vemdora_flutter_frontend/screens/login.dart';
 import 'package:vemdora_flutter_frontend/screens/qr_code_scanner.dart';
 import 'package:vemdora_flutter_frontend/screens/signup.dart';
 import 'package:vemdora_flutter_frontend/screens/User/user_main_page.dart';
-//import 'package:vemdora_flutter_frontend/screens/qr_code_scanner.dart';
 
 class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings setting) {
@@ -18,7 +20,9 @@ class MyRouter {
     const String walletPage = '/wallet';
     const String supplierUpdatePage = '/supplierlist';
     const String qrScannerPage = '/qrcodescanner';
-    // const String scanQr = '/scanqr';
+    const String orderList = '/orderlist';
+    const String orderSuccess = '/ordersuccess';
+    const String updateSuccess = './updatesuccess';
 
     switch (setting.name) {
       case login:
@@ -37,17 +41,14 @@ class MyRouter {
             builder: (context) => const SupplierMainPage());
       case qrScannerPage:
         return MaterialPageRoute(builder: (context) => const QrCodeScanner());
-      // case scanQr:
-      //   return MaterialPageRoute(
-      //       builder: (context) => const MobileScannerPage());
-      // case productInfo:
-      //   return MaterialPageRoute(
-      //       builder: (context) => const ProductInfo(
-      //             image: 'assets/images/milo.jpeg',
-      //             cost: 3.00,
-      //             name: 'milo',
-      //           ));
-      // default:
+      case orderList:
+        return MaterialPageRoute(builder: (context) => const OrderList());
+      case orderSuccess:
+        return MaterialPageRoute(
+            builder: (context) => const OrderSuccessfulPage());
+      case updateSuccess:
+        return MaterialPageRoute(
+            builder: (context) => const UpdateSuccessfulPage());
     }
 
     //default case

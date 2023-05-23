@@ -9,11 +9,13 @@ class UserMainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(188, 219, 255, 1),
       appBar: AppBar(
-        title: const Text('RM 50',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            )),
+        title: const Text(
+          'RM 50',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         actions: <Widget>[
@@ -23,7 +25,7 @@ class UserMainPage extends StatelessWidget {
               Navigator.of(context).pushNamed('/');
             },
             icon: const Icon(
-              Icons.logout_rounded,
+              Icons.home_outlined,
               color: Colors.black,
             ),
           )
