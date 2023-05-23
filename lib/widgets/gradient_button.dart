@@ -1,12 +1,18 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 
+// ignore: must_be_immutable
 class BlueGradientButton extends StatelessWidget {
   final String buttonText;
-  const BlueGradientButton({super.key, required this.buttonText});
+  VoidCallback onPress;
+
+  BlueGradientButton(
+      {super.key, required this.buttonText, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonWidth = screenWidth * 0.8;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
@@ -15,10 +21,10 @@ class BlueGradientButton extends StatelessWidget {
         ]),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPress,
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            minimumSize: const Size(350, 55),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            minimumSize: Size(buttonWidth, 55),
             backgroundColor: Colors.transparent),
         child: Text(
           buttonText,
@@ -32,12 +38,17 @@ class BlueGradientButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class PurpleGradientButton extends StatelessWidget {
   final String buttonText;
-  const PurpleGradientButton({super.key, required this.buttonText});
+  VoidCallback onPress;
+  PurpleGradientButton(
+      {super.key, required this.buttonText, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonWidth = screenWidth * 0.8;
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(colors: [
@@ -46,10 +57,10 @@ class PurpleGradientButton extends StatelessWidget {
         ]),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPress,
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            minimumSize: const Size(350, 55),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            minimumSize: Size(buttonWidth, 55),
             backgroundColor: Colors.transparent),
         child: Text(
           buttonText,

@@ -131,8 +131,9 @@ class _SignUpState extends State<SignUp> {
               ),
 
               // Login button
-              const BlueGradientButton(
+              BlueGradientButton(
                 buttonText: 'Sign Up',
+                onPress: () {},
               ),
 
               const SizedBox(

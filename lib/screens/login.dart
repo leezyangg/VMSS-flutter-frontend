@@ -139,8 +139,11 @@ class _LoginState extends State<Login> {
               ),
 
               // Login button
-              const BlueGradientButton(
+              BlueGradientButton(
                 buttonText: 'Login',
+                onPress: () {
+                  Navigator.of(context).pushNamed('/suppliermain');
+                },
               ),
 
               const SizedBox(
