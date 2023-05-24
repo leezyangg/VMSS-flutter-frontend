@@ -1,6 +1,8 @@
+import 'dart:convert';
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
+import 'package:http/http.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,6 +14,26 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _obscuredText = true;
   bool _rememberPassword = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login(String email, password) async {
+    try {
+      Response response = await get(
+        Uri.parse(
+            'http://10.0.2.2:8000/api/users?email=$email&password=$password'),
+        // body: {'email': email, 'password': password},
+      );
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print(data);
+      } else {
+        print('Failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +60,11 @@ class _LoginState extends State<Login> {
               ),
 
               // username text field
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -67,6 +90,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
+                  controller: passwordController,
                   obscureText: _obscuredText,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -142,7 +166,10 @@ class _LoginState extends State<Login> {
               BlueGradientButton(
                 buttonText: 'Login',
                 onPress: () {
-                  Navigator.of(context).pushNamed('/suppliermain');
+                  login(
+                    emailController.text.toString(),
+                    passwordController.text.toString(),
+                  );
                 },
               ),
 

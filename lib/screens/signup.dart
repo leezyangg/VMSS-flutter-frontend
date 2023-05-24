@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
+import 'package:http/http.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -11,6 +12,26 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool _obscuredText = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+
+  void signup(String email, phoneNumberController, password) async {
+    try {
+      Response response = await post(
+        Uri.parse('http://10.0.2.2:8000/api/users'),
+        body: {'email': email, 'password': password},
+      );
+      if (response.statusCode == 200) {
+        print('Account Sign Up Successfully');
+        Navigator.of(context).pushNamed('/usermain');
+      } else {
+        print('Failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +58,11 @@ class _SignUpState extends State<SignUp> {
               ),
 
               // email text field
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -63,10 +85,11 @@ class _SignUpState extends State<SignUp> {
               ),
 
               // phone number text field
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: phoneNumberController,
+                  decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
@@ -92,6 +115,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
+                  controller: passwordController,
                   obscureText: _obscuredText,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -130,10 +154,16 @@ class _SignUpState extends State<SignUp> {
                 height: 35,
               ),
 
-              // Login button
+              // Signup button
               BlueGradientButton(
                 buttonText: 'Sign Up',
-                onPress: () {},
+                onPress: () {
+                  signup(
+                    emailController.text.toString(),
+                    phoneNumberController.text.toString(),
+                    passwordController.text.toString(),
+                  );
+                },
               ),
 
               const SizedBox(
