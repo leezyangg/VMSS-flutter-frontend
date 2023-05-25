@@ -1,6 +1,6 @@
 {
-    "name": "vemdora_flutter_frontend",
-    "short_name": "vemdora_flutter_frontend",
+    "name": "vmss",
+    "short_name": "vmss",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

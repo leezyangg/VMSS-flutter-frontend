@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:vemdora_flutter_frontend/routes/my_router.dart';
-import 'package:sizer/sizer.dart';
+import 'package:vmss/screens/menuList.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // This widget is the root of your application.
+  @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Routing App',
-          theme: ThemeData(
-            primaryColor: Colors.blue,
-          ),
-          initialRoute: '/',
-          onGenerateRoute: MyRouter.generateRoute,
-        );
-      },
+    return MaterialApp(
+      title: 'VMSS',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Sen',
+      ),
+      home: const menuList(),
     );
   }
 }

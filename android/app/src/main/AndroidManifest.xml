@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vemdora_flutter_frontend">
+    package="com.example.vmss">
    <application
-        android:label="vemdora_flutter_frontend"
+        android:label="vmss"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
