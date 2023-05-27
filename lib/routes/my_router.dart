@@ -6,9 +6,12 @@ import 'package:vemdora_flutter_frontend/screens/User/order_list.dart';
 import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
 import 'package:vemdora_flutter_frontend/screens/User/wallet_page.dart';
 import 'package:vemdora_flutter_frontend/screens/login.dart';
+import 'package:vemdora_flutter_frontend/screens/User/user_menu_list.dart';
 import 'package:vemdora_flutter_frontend/screens/qr_code_scanner.dart';
 import 'package:vemdora_flutter_frontend/screens/signup.dart';
 import 'package:vemdora_flutter_frontend/screens/User/user_main_page.dart';
+
+import '../models/product.dart';
 
 class MyRouter {
   static Route<dynamic> generateRoute(RouteSettings setting) {
@@ -22,7 +25,8 @@ class MyRouter {
     const String qrScannerPage = '/qrcodescanner';
     const String orderList = '/orderlist';
     const String orderSuccess = '/ordersuccess';
-    const String updateSuccess = './updatesuccess';
+    const String updateSuccess = '/updatesuccess';
+    const String usermenulist = '/usermenulist';
 
     switch (setting.name) {
       case login:
@@ -42,13 +46,19 @@ class MyRouter {
       case qrScannerPage:
         return MaterialPageRoute(builder: (context) => const QrCodeScanner());
       case orderList:
-        return MaterialPageRoute(builder: (context) => const OrderList());
+        final List<OrderData> selectedOrderData =
+            setting.arguments as List<OrderData>;
+        return MaterialPageRoute(
+          builder: (context) => OrderList(selectedOrderData: selectedOrderData),
+        );
       case orderSuccess:
         return MaterialPageRoute(
             builder: (context) => const OrderSuccessfulPage());
       case updateSuccess:
         return MaterialPageRoute(
             builder: (context) => const UpdateSuccessfulPage());
+      case usermenulist:
+        return MaterialPageRoute(builder: (context) => const MenuList());
     }
 
     //default case

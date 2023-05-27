@@ -16,12 +16,23 @@ class UpdateSuccessfulPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            // Add logic here
+            Navigator.of(context).pushNamed('/suppliermain');
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
           children: [
             const SizedBox(
-              height: 70,
+              height: 150,
             ),
             Image.asset('assets/images/update_successful.png'),
             const SizedBox(
