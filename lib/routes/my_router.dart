@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:vemdora_flutter_frontend/screens/Supplier/supplier_main_page.dart';
-import 'package:vemdora_flutter_frontend/screens/Supplier/supplier_update_list.dart';
+import 'package:vemdora_flutter_frontend/screens/Supplier/supplier_menu_list.dart';
+import 'package:vemdora_flutter_frontend/screens/Supplier/update_list.dart';
 import 'package:vemdora_flutter_frontend/screens/Supplier/update_successful.dart';
 import 'package:vemdora_flutter_frontend/screens/User/order_list.dart';
 import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
@@ -21,44 +22,55 @@ class MyRouter {
     const String userMainPage = '/usermain';
     const String supplierMainPage = '/suppliermain';
     const String walletPage = '/wallet';
-    const String supplierUpdatePage = '/supplierlist';
+    const String suppliermenulist = '/suppliermenulist';
+    const String updateList = '/updatelist';
     const String qrScannerPage = '/qrcodescanner';
-    const String orderList = '/orderlist';
-    const String orderSuccess = '/ordersuccess';
-    const String updateSuccess = '/updatesuccess';
     const String usermenulist = '/usermenulist';
+    const String orderList = '/orderlist';
+    const String orderSuccessPage = '/ordersuccess';
+    const String updateSuccess = '/updatesuccess';
 
     switch (setting.name) {
       case login:
         return MaterialPageRoute(builder: (context) => const Login());
       case signup:
         return MaterialPageRoute(builder: (context) => const SignUp());
+      case qrScannerPage:
+        return MaterialPageRoute(builder: (context) => const QrCodeScanner());
+
+      // User Pages
       case userMainPage:
         return MaterialPageRoute(builder: (context) => const UserMainPage());
       case walletPage:
         return MaterialPageRoute(builder: (context) => const WalletPage());
-      case supplierUpdatePage:
-        return MaterialPageRoute(
-            builder: (context) => const SupplierUpdateList());
-      case supplierMainPage:
-        return MaterialPageRoute(
-            builder: (context) => const SupplierMainPage());
-      case qrScannerPage:
-        return MaterialPageRoute(builder: (context) => const QrCodeScanner());
+      case usermenulist:
+        return MaterialPageRoute(builder: (context) => const UserMenuList());
       case orderList:
         final List<OrderData> selectedOrderData =
             setting.arguments as List<OrderData>;
         return MaterialPageRoute(
           builder: (context) => OrderList(selectedOrderData: selectedOrderData),
         );
-      case orderSuccess:
+      case orderSuccessPage:
         return MaterialPageRoute(
             builder: (context) => const OrderSuccessfulPage());
+
+      // Supplier Pages
+      case supplierMainPage:
+        return MaterialPageRoute(
+            builder: (context) => const SupplierMainPage());
+      case suppliermenulist:
+        return MaterialPageRoute(
+            builder: (context) => const SupplierMenuList());
+      case updateList:
+        final List<UpdateData> selectedUpdateData =
+            setting.arguments as List<UpdateData>;
+        return MaterialPageRoute(
+            builder: (context) =>
+                UpdateList(selectedUpdateData: selectedUpdateData));
       case updateSuccess:
         return MaterialPageRoute(
             builder: (context) => const UpdateSuccessfulPage());
-      case usermenulist:
-        return MaterialPageRoute(builder: (context) => const MenuList());
     }
 
     //default case

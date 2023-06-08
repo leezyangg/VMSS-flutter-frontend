@@ -27,6 +27,7 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
         print(data);
+        Navigator.of(context).pushNamed('/');
       } else {
         print('Failed');
       }

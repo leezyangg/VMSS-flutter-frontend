@@ -3,17 +3,17 @@ import 'package:vemdora_flutter_frontend/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class UserMenuList extends StatefulWidget {
-  const UserMenuList({super.key});
+class SupplierMenuList extends StatefulWidget {
+  const SupplierMenuList({super.key});
 
   @override
-  State<UserMenuList> createState() => _UserMenuListState();
+  State<SupplierMenuList> createState() => _SupplierMenuListState();
 }
 
-class _UserMenuListState extends State<UserMenuList> {
+class _SupplierMenuListState extends State<SupplierMenuList> {
   int selectedLayer = 1;
   Map<int, int> quantityMap = {};
-  List<OrderData> selectedOrders = [];
+  List<UpdateData> selectedOrders = [];
   @override
   void initState() {
     super.initState();
@@ -47,6 +47,7 @@ class _UserMenuListState extends State<UserMenuList> {
       print('Failed to fetch products. Error: ${response.statusCode}');
     }
   }
+
   //maintain the product quantity value
   //show the dropdown list to choose the layer
 
@@ -208,13 +209,13 @@ class _UserMenuListState extends State<UserMenuList> {
             height: 15.0,
           ),
           const Text(
-            'Please select your item',
+            'Please update the stock',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Expanded(
             child: buildProductList(getProductsByLayer(selectedLayer)),
           ),
-          buildButton('Place Order')
+          buildButton('Update Stock')
         ],
       ),
     );
@@ -253,21 +254,21 @@ class _UserMenuListState extends State<UserMenuList> {
   }
 
   void navigateToConfirmationPage() {
-    List<OrderData> selectedOrderData = [];
+    List<UpdateData> selectedUpdateData = [];
 
-    // Create OrderData objects from selected products and quantities
+    // Create UpdateData objects from selected products and quantities
     for (Product product in products) {
       int quantity = quantityMap[product.id] ?? 0;
       if (quantity > 0) {
-        selectedOrderData.add(OrderData(product, quantity));
+        selectedUpdateData.add(UpdateData(product, quantity));
       }
     }
 
     // Navigate to the confirmation page and pass the selected order data
     Navigator.pushNamed(
       context,
-      '/orderlist',
-      arguments: selectedOrderData,
+      '/updatelist',
+      arguments: selectedUpdateData,
     );
   }
 

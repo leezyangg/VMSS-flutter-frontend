@@ -15,10 +15,10 @@ class WalletPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed('/usermain');
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.home_outlined,
-            color: Colors.black,
-            size: 40,
+            color: Colors.grey[800],
+            size: 33,
             weight: 0.00005,
           ),
         ),

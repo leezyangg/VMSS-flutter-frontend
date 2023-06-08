@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Routing App',
+          title: 'Vemdora',
           theme: ThemeData(
             primaryColor: Colors.blue,
           ),
-          initialRoute: '/usermenulist',
+          initialRoute: '/suppliermenulist',
           onGenerateRoute: MyRouter.generateRoute,
         );
       },

@@ -134,9 +134,10 @@ class _OrderListState extends State<OrderList> {
           Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: PurpleGradientButton(
-              buttonText: 'Your Button Text',
+              buttonText: 'Pay with VemWallet',
               onPress: () {
                 // Logic Here
+                Navigator.of(context).pushNamed('/ordersuccess');
               },
             ),
           ),

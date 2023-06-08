@@ -24,9 +24,10 @@ class UserMainPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed('/');
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.home_outlined,
-              color: Colors.black,
+              color: Colors.grey[800],
+              size: 33,
             ),
           )
         ],
@@ -36,9 +37,10 @@ class UserMainPage extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed('/wallet');
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.account_balance_wallet_outlined,
-            color: Colors.black,
+            color: Colors.grey[700],
+            size: 33,
           ),
         ),
       ),
