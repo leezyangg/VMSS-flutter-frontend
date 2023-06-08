@@ -22,7 +22,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
 
   Future<void> fetchProducts() async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:8000/api/vendingMachines/1/items'));
+        .get(Uri.parse('http://10.206.50.98:8000/api/vendingMachines/1/items'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

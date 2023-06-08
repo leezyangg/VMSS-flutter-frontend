@@ -3,6 +3,9 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
+import '../providers/user_state.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -21,12 +24,24 @@ class _LoginState extends State<Login> {
     try {
       Response response = await get(
         Uri.parse(
-            'http://10.0.2.2:8000/api/users?email=$email&password=$password'),
+            // 'http://10.0.2.2:8000/api/users?email=$email&password=$password'),
+            'http://10.206.50.98:8000/api/users?email=$email&password=$password'),
         // body: {'email': email, 'password': password},
       );
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
-        print(data);
+        String userTypeString = data['userType'];
+        UserType userType;
+        if (userTypeString == 'Public User') {
+          userType = UserType.publicUser;
+        } else if (userTypeString == 'Supplier') {
+          userType = UserType.supplier;
+        } else {
+          console.log("email")
+        }
+        int userId = data['userID'];
+        context.read(userProvider).setUserType(userType);
+        context.read(userProvider).setUserId(userId.toString());
         Navigator.of(context).pushNamed('/');
       } else {
         print('Failed');
