@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:vemdora_flutter_frontend/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../utils/config.dart';
 
 class SupplierMenuList extends StatefulWidget {
   const SupplierMenuList({super.key});
@@ -21,18 +24,20 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
   }
 
   Future<void> fetchProducts() async {
-    final response = await http
-        .get(Uri.parse('http://10.206.50.98:8000/api/vendingMachines/1/items'));
+    String myConfig = Config.apiLink;
+    final response =
+        await http.get(Uri.parse('$myConfig/vendingMachines/1/items'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<Product> fetchedProducts = [];
 
       for (var item in data['items']) {
+        String imagePreLink = Config.imagePreLink;
         final product = Product(
           id: item['stockID'],
           name: item['stockName'],
-          photoUrl: "assets/images/milk.jpg",
+          photoUrl: "$imagePreLink${item['imageURL']}",
           price: double.parse(item['sellPrice'].toString()),
           layer: item['level'],
         );
@@ -142,7 +147,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
       ),
       child: Column(
         children: [
-          Image.asset(
+          Image.network(
             product.photoUrl,
             width: 150,
             height: 150,

@@ -33,10 +33,11 @@ class _UserMenuListState extends State<UserMenuList> {
       final List<Product> fetchedProducts = [];
 
       for (var item in data['items']) {
+        String imagePreLink = Config.imagePreLink;
         final product = Product(
           id: item['stockID'],
           name: item['stockName'],
-          photoUrl: "assets/images/milk.jpg",
+          photoUrl: "$imagePreLink${item['imageURL']}",
           price: double.parse(item['sellPrice'].toString()),
           layer: item['level'],
         );
@@ -145,7 +146,7 @@ class _UserMenuListState extends State<UserMenuList> {
       ),
       child: Column(
         children: [
-          Image.asset(
+          Image.network(
             product.photoUrl,
             width: 150,
             height: 150,

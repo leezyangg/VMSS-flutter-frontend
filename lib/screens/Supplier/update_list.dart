@@ -100,7 +100,7 @@ class _UpdateListState extends State<UpdateList> {
                           children: [
                             ListTile(
                               contentPadding: EdgeInsets.zero,
-                              leading: Image.asset(
+                              leading: Image.network(
                                 updateData.product.photoUrl,
                                 width: 90,
                                 height: 100,
