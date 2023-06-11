@@ -152,7 +152,7 @@ class _UpdateListState extends State<UpdateList> {
                         child: Row(
                           children: [
                             const SizedBox(width: 12),
-                            Icon(Icons.edit, color: Colors.white),
+                            const Icon(Icons.edit, color: Colors.white),
                             const SizedBox(width: 4),
                             Expanded(
                               child: isEditing
@@ -169,9 +169,9 @@ class _UpdateListState extends State<UpdateList> {
                                     )
                                   : InkWell(
                                       onTap: startEditing,
-                                      child: Text(
+                                      child: const Text(
                                         'Remark',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,

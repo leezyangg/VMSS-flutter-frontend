@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
       );
       if (response.statusCode == 200) {
         print('Account Sign Up Successfully');
-        Navigator.of(context).pushNamed('/usermain');
+        Navigator.of(context).pushNamed('/');
       } else {
         print('Failed');
       }

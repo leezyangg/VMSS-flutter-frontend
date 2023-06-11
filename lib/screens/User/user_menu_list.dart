@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:vemdora_flutter_frontend/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../utils/config.dart';
 
 class UserMenuList extends StatefulWidget {
   const UserMenuList({super.key});
@@ -21,8 +24,9 @@ class _UserMenuListState extends State<UserMenuList> {
   }
 
   Future<void> fetchProducts() async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:8000/api/vendingMachines/1/items'));
+    String myConfig = Config.apiLink;
+    final response =
+        await http.get(Uri.parse('$myConfig/vendingMachines/1/items'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

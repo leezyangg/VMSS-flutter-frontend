@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primaryColor: Colors.blue,
             ),
-            initialRoute: '/',
+            initialRoute: '/usermenulist',
             onGenerateRoute: MyRouter.generateRoute,
           ),
         );
