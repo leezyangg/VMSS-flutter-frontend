@@ -1,11 +1,36 @@
+// ignore_for_file: avoid_print
+
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
+import 'package:http/http.dart';
+import '../../utils/config.dart';
+import '../../providers/user_state.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
 
 class WalletPage extends StatelessWidget {
-  const WalletPage({super.key});
+  const WalletPage({Key? key}) : super(key: key);
+
+  Future<void> fetchWalletData(BuildContext context) async {
+    UserState userState = Provider.of<UserState>(context, listen: false);
+    String userID = userState.userId;
+    String myConfig = Config.apiLink;
+
+    try {
+      Response response = await get(Uri.parse('$myConfig/ewallets/$userID'));
+      if (response.statusCode == 200) {
+        // Process the response data here
+      } else {
+        print('Failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    fetchWalletData(context); // Call the fetchWalletData method
+
     return Scaffold(
       backgroundColor: const Color.fromRGBO(188, 219, 255, 1),
       appBar: AppBar(
@@ -19,7 +44,6 @@ class WalletPage extends StatelessWidget {
             Icons.home_outlined,
             color: Colors.grey[800],
             size: 33,
-            weight: 0.00005,
           ),
         ),
       ),
@@ -55,7 +79,9 @@ class WalletPage extends StatelessWidget {
             ),
             PurpleGradientButton(
               buttonText: 'Top Up',
-              onPress: () {},
+              onPress: () {
+                // Top Up logic Be placed here
+              },
             ),
             const SizedBox(
               height: 15,

@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
 import 'package:http/http.dart';
+import '../utils/config.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -11,6 +14,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String myConfig = Config.apiLink;
   bool _obscuredText = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -19,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   void signup(String email, phoneNumberController, password) async {
     try {
       Response response = await post(
-        Uri.parse('http://10.0.2.2:8000/api/users'),
+        Uri.parse('myConfig/users'),
         body: {'email': email, 'password': password},
       );
       if (response.statusCode == 200) {

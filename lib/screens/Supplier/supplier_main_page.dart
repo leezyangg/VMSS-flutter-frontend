@@ -26,30 +26,32 @@ class SupplierMainPage extends StatelessWidget {
 
         // wallet button
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 70,
-            ),
-            Image.asset('assets/images/vemdora_icon.png'),
-            PurpleGradientButton(
-              buttonText: 'Scan QR Code',
-              onPress: () {
-                Navigator.of(context).pushNamed('/usermain');
-              },
-            ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 70,
+              ),
+              Image.asset('assets/images/vemdora_icon.png'),
+              PurpleGradientButton(
+                buttonText: 'Scan QR Code',
+                onPress: () {
+                  Navigator.of(context).pushNamed('/usermain');
+                },
+              ),
 
-            const SizedBox(
-              height: 15,
-            ),
+              const SizedBox(
+                height: 15,
+              ),
 
-            // text
-            const Text(
-              'To view catalog of vending machine...',
-              style: TextStyle(color: Colors.grey, fontSize: 15),
-            ),
-          ],
+              // text
+              const Text(
+                'To view catalog of vending machine...',
+                style: TextStyle(color: Colors.grey, fontSize: 15),
+              ),
+            ],
+          ),
         ),
       ),
     );

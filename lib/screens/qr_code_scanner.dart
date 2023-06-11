@@ -50,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mobile Scanner"),
+        centerTitle: true,
+        title: const Text("Scan"),
         actions: [
           IconButton(
             color: Colors.white,
