@@ -1,6 +1,13 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import "../../models/product.dart";
+import '../../providers/user_state.dart';
 import "../../widgets/gradient_button.dart";
+import 'package:http/http.dart';
+import '../../utils/config.dart';
+import 'dart:convert';
 
 class OrderList extends StatefulWidget {
   final List<OrderData> selectedOrderData;
@@ -138,12 +145,44 @@ class _OrderListState extends State<OrderList> {
               buttonText: 'Pay with VemWallet',
               onPress: () {
                 // Logic Here
-                Navigator.of(context).pushNamed('/ordersuccess');
+                placeOrder();
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  void placeOrder() async {
+    try {
+      UserState userState = Provider.of<UserState>(context, listen: false);
+      String url = '${Config.apiLink}/orders/1/${userState.userId}';
+
+      var orderDataList = widget.selectedOrderData.map((orderData) {
+        return {
+          'stockName': orderData.product.name,
+          'level': orderData.product.layer,
+          'sellPrice': orderData.product.price,
+          'orderedQuantity': orderData.quantity,
+        };
+      }).toList();
+
+      var body = {'items': orderDataList};
+      Response response = await post(Uri.parse(url),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(body));
+      print(url);
+      print(jsonEncode(body));
+      if (response.statusCode == 200) {
+        print('Order placed successfully!');
+        print(response.body);
+        Navigator.of(context).pushNamed('/ordersuccess');
+      } else {
+        print('Failed to place order. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -6,10 +6,12 @@ class UserState extends ChangeNotifier {
   UserType _userType = UserType.publicUser;
   double _walletValue = 0.0;
   String _userId = '';
+  String _userName = '';
 
   UserType get userType => _userType;
   String get userId => _userId;
   double get walletValue => _walletValue;
+  String get userName => _userName;
 
   void setUserType(UserType type) {
     _userType = type;
@@ -23,6 +25,11 @@ class UserState extends ChangeNotifier {
 
   void setWalletValue(double walletValue) {
     _walletValue = walletValue;
+    notifyListeners();
+  }
+
+  void setUserName(String userName) {
+    _userName = userName;
     notifyListeners();
   }
 

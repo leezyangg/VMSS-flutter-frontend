@@ -37,7 +37,7 @@ class SupplierMainPage extends StatelessWidget {
               PurpleGradientButton(
                 buttonText: 'Scan QR Code',
                 onPress: () {
-                  Navigator.of(context).pushNamed('/qrcodescanner');
+                  Navigator.of(context).pushNamed('/suppliermenulist');
                 },
               ),
 

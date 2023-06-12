@@ -30,6 +30,7 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body.toString());
         String userTypeString = data['userType'];
+        String userName = data['userName'];
         int userId = data['userID'];
         UserType userType;
         if (userTypeString == 'Public User') {
@@ -42,6 +43,7 @@ class _LoginState extends State<Login> {
         UserState userState = Provider.of<UserState>(context, listen: false);
         userState.setUserType(userType);
         userState.setUserId(userId.toString());
+        userState.setUserName(userName.toString());
         if (userTypeString == 'Public User') {
           Navigator.of(context).pushNamed('/usermain');
         } else {

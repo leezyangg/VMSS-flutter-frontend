@@ -1,5 +1,13 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import '../../models/product.dart';
+import '../../providers/user_state.dart';
+import '../../utils/config.dart';
 import '../../widgets/gradient_button.dart';
 
 class UpdateList extends StatefulWidget {
@@ -201,6 +209,7 @@ class _UpdateListState extends State<UpdateList> {
               buttonText: 'Confirm',
               onPress: () {
                 // Logic Here
+                updateStock();
                 Navigator.of(context).pushNamed('/updatesuccess');
               },
             ),
@@ -208,5 +217,36 @@ class _UpdateListState extends State<UpdateList> {
         ],
       ),
     );
+  }
+
+  void updateStock() async {
+    try {
+      UserState userState = Provider.of<UserState>(context, listen: false);
+      String url = '${Config.apiLink}/suppliers/update/1';
+
+      var updateDataList = widget.selectedUpdateData.map((updateData) {
+        return {
+          "supplierName": userState.userName,
+          'stockName': updateData.product.name,
+          'suppliedQuantity': updateData.quantity,
+        };
+      }).toList();
+
+      var body = {'items': updateDataList};
+      Response response = await post(Uri.parse(url),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(body));
+      print(url);
+      print(jsonEncode(body));
+      if (response.statusCode == 200) {
+        print('Order placed successfully!');
+        print(response.body);
+        Navigator.of(context).pushNamed('/updatesuccess');
+      } else {
+        print('Failed to place order. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
