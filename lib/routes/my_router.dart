@@ -11,7 +11,6 @@ import 'package:vemdora_flutter_frontend/screens/User/user_menu_list.dart';
 import 'package:vemdora_flutter_frontend/screens/qr_code_scanner.dart';
 import 'package:vemdora_flutter_frontend/screens/signup.dart';
 import 'package:vemdora_flutter_frontend/screens/User/user_main_page.dart';
-
 import '../models/product.dart';
 
 class MyRouter {
@@ -36,7 +35,8 @@ class MyRouter {
       case signup:
         return MaterialPageRoute(builder: (context) => const SignUp());
       case qrScannerPage:
-        return MaterialPageRoute(builder: (context) => const QrCodeScanner());
+        return MaterialPageRoute(
+            builder: (context) => const QRScanner()); // changes here!!!
 
       // User Pages
       case userMainPage:
@@ -44,7 +44,10 @@ class MyRouter {
       case walletPage:
         return MaterialPageRoute(builder: (context) => const WalletPage());
       case usermenulist:
-        return MaterialPageRoute(builder: (context) => const UserMenuList());
+        final String barcode = setting.arguments as String;
+        return MaterialPageRoute(
+            builder: (context) => UserMenuList(code: barcode));
+      // builder: (context) => const UserMenuList());
       case orderList:
         final List<OrderData> selectedOrderData =
             setting.arguments as List<OrderData>;

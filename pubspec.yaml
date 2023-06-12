@@ -39,7 +39,7 @@ dependencies:
   sizer: ^2.0.15
   http: ^0.13.6
   shared_preferences: ^2.1.1
-  mobile_scanner: ^1.0.0
+  mobile_scanner: ^2.1.0
   provider: ^6.0.5
 
 dev_dependencies:

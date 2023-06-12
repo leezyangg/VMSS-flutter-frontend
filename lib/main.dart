@@ -22,6 +22,10 @@ class MyApp extends StatelessWidget {
             title: 'Vemdora',
             theme: ThemeData(
               primaryColor: Colors.blue,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+              ),
             ),
             initialRoute: '/',
             onGenerateRoute: MyRouter.generateRoute,

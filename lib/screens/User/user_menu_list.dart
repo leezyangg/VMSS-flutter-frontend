@@ -7,8 +7,11 @@ import 'dart:convert';
 import '../../utils/config.dart';
 
 class UserMenuList extends StatefulWidget {
-  const UserMenuList({super.key});
+  final String code;
 
+  const UserMenuList({Key? key, required this.code})
+      : super(key: key); // real path
+  // const UserMenuList({super.key});
   @override
   State<UserMenuList> createState() => _UserMenuListState();
 }
@@ -25,9 +28,9 @@ class _UserMenuListState extends State<UserMenuList> {
 
   Future<void> fetchProducts() async {
     String myConfig = Config.apiLink;
-    final response =
-        await http.get(Uri.parse('$myConfig/vendingMachines/1/items'));
-
+    final response = await http
+        .get(Uri.parse('$myConfig/vendingMachines/${widget.code}/items'));
+    // .get(Uri.parse('$myConfig/vendingMachines/1/items')); // Test for vm1
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final List<Product> fetchedProducts = [];
