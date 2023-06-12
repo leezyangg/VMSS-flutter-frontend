@@ -47,7 +47,7 @@ class UserMainPage extends StatelessWidget {
               PurpleGradientButton(
                 buttonText: 'Scan QR Code',
                 onPress: () {
-                  Navigator.of(context).pushNamed('/usermenulist');
+                  Navigator.of(context).pushNamed('/qrcodescanner');
                 },
               ),
               const SizedBox(

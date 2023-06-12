@@ -7,11 +7,13 @@ class UserState extends ChangeNotifier {
   double _walletValue = 0.0;
   String _userId = '';
   String _userName = '';
+  int _vmID = 0;
 
   UserType get userType => _userType;
   String get userId => _userId;
   double get walletValue => _walletValue;
   String get userName => _userName;
+  int get vmID => _vmID;
 
   void setUserType(UserType type) {
     _userType = type;
@@ -30,6 +32,11 @@ class UserState extends ChangeNotifier {
 
   void setUserName(String userName) {
     _userName = userName;
+    notifyListeners();
+  }
+
+  void setVMID(int vmID) {
+    _vmID = vmID;
     notifyListeners();
   }
 
