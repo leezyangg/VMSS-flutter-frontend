@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import '../../providers/user_state.dart';
+import 'package:provider/provider.dart';
 
 const bgColor = Color(0xfffafafa);
 
@@ -21,6 +23,7 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
+    UserState userState = Provider.of<UserState>(context, listen: false);
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
@@ -74,8 +77,14 @@ class _QRScannerState extends State<QRScanner> {
                     if (!isScanCompleted) {
                       String code = barcode.rawValue ?? '---';
                       isScanCompleted = true;
-                      Navigator.of(context)
-                          .pushNamed('/usermenulist', arguments: code);
+                      if (userState.userType == UserType.publicUser) {
+                        Navigator.of(context)
+                            .pushNamed('/usermenulist', arguments: code);
+                      } else {
+                        Navigator.of(context)
+                            .pushNamed('/suppliermenulist', arguments: code);
+                      }
+
                       cameraController.dispose();
                     }
                   }),

@@ -35,8 +35,7 @@ class MyRouter {
       case signup:
         return MaterialPageRoute(builder: (context) => const SignUp());
       case qrScannerPage:
-        return MaterialPageRoute(
-            builder: (context) => const QRScanner()); // changes here!!!
+        return MaterialPageRoute(builder: (context) => const QRScanner());
 
       // User Pages
       case userMainPage:
@@ -63,8 +62,9 @@ class MyRouter {
         return MaterialPageRoute(
             builder: (context) => const SupplierMainPage());
       case suppliermenulist:
+        final String barcode = setting.arguments as String;
         return MaterialPageRoute(
-            builder: (context) => const SupplierMenuList());
+            builder: (context) => SupplierMenuList(code: barcode));
       case updateList:
         final List<UpdateData> selectedUpdateData =
             setting.arguments as List<UpdateData>;

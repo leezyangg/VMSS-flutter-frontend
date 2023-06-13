@@ -210,7 +210,6 @@ class _UpdateListState extends State<UpdateList> {
               onPress: () {
                 // Logic Here
                 updateStock();
-                Navigator.of(context).pushNamed('/updatesuccess');
               },
             ),
           ),
@@ -222,7 +221,7 @@ class _UpdateListState extends State<UpdateList> {
   void updateStock() async {
     try {
       UserState userState = Provider.of<UserState>(context, listen: false);
-      String url = '${Config.apiLink}/suppliers/update/1';
+      String url = '${Config.apiLink}/suppliers/update/${userState.userId}';
 
       var updateDataList = widget.selectedUpdateData.map((updateData) {
         return {
@@ -233,9 +232,11 @@ class _UpdateListState extends State<UpdateList> {
       }).toList();
 
       var body = {'items': updateDataList};
+      print(body);
       Response response = await post(Uri.parse(url),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(body));
+      print(jsonEncode(body));
       print(url);
       print(jsonEncode(body));
       if (response.statusCode == 200) {
