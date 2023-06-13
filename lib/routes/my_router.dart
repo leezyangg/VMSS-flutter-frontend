@@ -48,10 +48,14 @@ class MyRouter {
             builder: (context) => UserMenuList(code: barcode));
       // builder: (context) => const UserMenuList());
       case orderList:
+        final Map<String, dynamic> arguments =
+            setting.arguments as Map<String, dynamic>;
         final List<OrderData> selectedOrderData =
-            setting.arguments as List<OrderData>;
+            arguments['selectedOrderData'] as List<OrderData>;
+        final String barcode = arguments['barcode'] as String;
         return MaterialPageRoute(
-          builder: (context) => OrderList(selectedOrderData: selectedOrderData),
+          builder: (context) =>
+              OrderList(selectedOrderData: selectedOrderData, vmID: barcode),
         );
       case orderSuccessPage:
         return MaterialPageRoute(

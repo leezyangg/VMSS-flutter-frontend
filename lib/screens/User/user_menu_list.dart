@@ -275,7 +275,10 @@ class _UserMenuListState extends State<UserMenuList> {
     Navigator.pushNamed(
       context,
       '/orderlist',
-      arguments: selectedOrderData,
+      arguments: {
+        'selectedOrderData': selectedOrderData,
+        'barcode': widget.code,
+      },
     );
   }
 

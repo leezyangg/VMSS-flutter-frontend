@@ -10,8 +10,10 @@ import '../../utils/config.dart';
 import 'dart:convert';
 
 class OrderList extends StatefulWidget {
+  final String vmID;
   final List<OrderData> selectedOrderData;
-  const OrderList({Key? key, required this.selectedOrderData})
+  const OrderList(
+      {Key? key, required this.selectedOrderData, required this.vmID})
       : super(key: key);
 
   @override
@@ -157,7 +159,8 @@ class _OrderListState extends State<OrderList> {
   void placeOrder() async {
     try {
       UserState userState = Provider.of<UserState>(context, listen: false);
-      String url = '${Config.apiLink}/orders/1/${userState.userId}';
+      String url =
+          '${Config.apiLink}/orders/${widget.vmID}/${userState.userId}';
       print(url);
 
       var orderDataList = widget.selectedOrderData.map((orderData) {
