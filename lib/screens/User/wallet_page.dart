@@ -18,7 +18,7 @@ class WalletPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/usermain');
+            Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.home_outlined,
@@ -28,53 +28,55 @@ class WalletPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 100,
-            ),
-            Image.asset('assets/images/wallet.png'),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              'Wallet Balance:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w600,
+              Image.asset('assets/images/wallet.png'),
+              const SizedBox(
+                height: 20,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            PurpleGradientButton(
-              buttonText: 'Top Up',
-              onPress: () {
-                // Top Up logic Be placed here
-              },
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            const Text(
-              'Top Up can only be done using TnG',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w300),
-            ),
-          ],
+              const Text(
+                'Wallet Balance:',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              PurpleGradientButton(
+                buttonText: 'Top Up',
+                onPress: () {
+                  Navigator.of(context).pushNamed('/wallettopup');
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                'Top Up can only be done using TnG',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w300),
+              ),
+            ],
+          ),
         ),
       ),
     );

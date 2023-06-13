@@ -6,6 +6,7 @@ import 'package:vemdora_flutter_frontend/screens/Supplier/update_successful.dart
 import 'package:vemdora_flutter_frontend/screens/User/order_list.dart';
 import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
 import 'package:vemdora_flutter_frontend/screens/User/wallet_page.dart';
+import 'package:vemdora_flutter_frontend/screens/User/wallet_top_up_page.dart';
 import 'package:vemdora_flutter_frontend/screens/login.dart';
 import 'package:vemdora_flutter_frontend/screens/User/user_menu_list.dart';
 import 'package:vemdora_flutter_frontend/screens/qr_code_scanner.dart';
@@ -28,6 +29,7 @@ class MyRouter {
     const String orderList = '/orderlist';
     const String orderSuccessPage = '/ordersuccess';
     const String updateSuccess = '/updatesuccess';
+    const String walletTopUpPage = '/wallettopup';
 
     switch (setting.name) {
       case login:
@@ -42,6 +44,8 @@ class MyRouter {
         return MaterialPageRoute(builder: (context) => const UserMainPage());
       case walletPage:
         return MaterialPageRoute(builder: (context) => const WalletPage());
+      case walletTopUpPage:
+        return MaterialPageRoute(builder: (context) => const WalletTopUpPage());
       case usermenulist:
         final String barcode = setting.arguments as String;
         return MaterialPageRoute(

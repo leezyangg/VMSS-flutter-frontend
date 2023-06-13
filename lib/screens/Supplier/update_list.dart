@@ -232,20 +232,38 @@ class _UpdateListState extends State<UpdateList> {
         };
       }).toList();
 
-      var body = {'items': updateDataList};
-      print(body);
-      Response response = await post(Uri.parse(url),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(body));
-      print(jsonEncode(body));
-      print(url);
-      print(jsonEncode(body));
-      if (response.statusCode == 200) {
-        print('Order placed successfully!');
-        print(response.body);
-        Navigator.of(context).pushNamed('/updatesuccess');
+      if (updateDataList.isEmpty) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Empty Update List'),
+              content:
+                  const Text('Please select the stock before confirm update'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
-        print('Failed to place order. Error: ${response.statusCode}');
+        var body = {'items': updateDataList};
+        print(body);
+        Response response = await post(Uri.parse(url),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(body));
+        if (response.statusCode == 200) {
+          print('Order placed successfully!');
+          print(response.body);
+          Navigator.of(context).pushNamed('/updatesuccess');
+        } else {
+          print('Failed to place order. Error: ${response.statusCode}');
+        }
       }
     } catch (e) {
       print(e);

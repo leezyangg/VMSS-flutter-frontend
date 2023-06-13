@@ -50,7 +50,23 @@ class _LoginState extends State<Login> {
           Navigator.of(context).pushNamed('/suppliermain');
         }
       } else {
-        print('Failed');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Invalid Credentials'),
+              content: const Text('Please enter correct email and password.'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
       print(e.toString());

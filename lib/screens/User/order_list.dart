@@ -172,18 +172,38 @@ class _OrderListState extends State<OrderList> {
         };
       }).toList();
 
-      var body = {'items': orderDataList};
-      Response response = await post(Uri.parse(url),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(body));
-      print(url);
-      print(jsonEncode(body));
-      if (response.statusCode == 200) {
-        print('Order placed successfully!');
-        print(response.body);
-        Navigator.of(context).pushNamed('/ordersuccess');
+      if (orderDataList.isEmpty) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Empty Order'),
+              content: const Text('Please select the product before payment'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
-        print('Failed to place order. Error: ${response.statusCode}');
+        var body = {'items': orderDataList};
+        Response response = await post(Uri.parse(url),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(body));
+        print(url);
+        print(jsonEncode(body));
+        if (response.statusCode == 200) {
+          print('Order placed successfully!');
+          print(response.body);
+          Navigator.of(context).pushNamed('/ordersuccess');
+        } else {
+          print('Failed to place order. Error: ${response.statusCode}');
+        }
       }
     } catch (e) {
       print(e);

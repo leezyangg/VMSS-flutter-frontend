@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
+import 'dart:convert';
+
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
@@ -14,26 +16,75 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String myConfig = Config.apiLink;
   bool _obscuredText = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
 
-  void signup(String email, phoneNumberController, password) async {
+  void signup(String email, username, password) async {
     try {
+      var body = {'email': email, 'userName': username, 'password': password};
       Response response = await post(
-        Uri.parse('myConfig/users'),
-        body: {'email': email, 'password': password},
+        Uri.parse('${Config.apiLink}/users'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(body),
       );
       if (response.statusCode == 200) {
-        print('Account Sign Up Successfully');
-        Navigator.of(context).pushNamed('/');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Sign Up Successful'),
+              content: const Text('Account Created Successfully! '),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
-        print('Failed');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Sign Up Failed'),
+              content: const Text('Please enter valid value'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
-      print(e.toString());
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Connection Failed'),
+            content: Text('Please connect wifi $e'),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -92,7 +143,7 @@ class _SignUpState extends State<SignUp> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
-                  controller: phoneNumberController,
+                  controller: usernameController,
                   decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -101,10 +152,10 @@ class _SignUpState extends State<SignUp> {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                     prefixIcon: Icon(
-                      Icons.phone_outlined,
+                      Icons.person_2_outlined,
                       color: Colors.grey,
                     ),
-                    hintText: 'Phone Number',
+                    hintText: 'Username',
                     fillColor: Colors.white,
                     filled: true,
                   ),
@@ -164,7 +215,7 @@ class _SignUpState extends State<SignUp> {
                 onPress: () {
                   signup(
                     emailController.text.toString(),
-                    phoneNumberController.text.toString(),
+                    usernameController.text.toString(),
                     passwordController.text.toString(),
                   );
                 },
@@ -187,7 +238,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/');
+                        Navigator.of(context).pop();
                       },
                       child: Text(
                         'Login',
