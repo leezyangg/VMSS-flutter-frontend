@@ -10,9 +10,11 @@ import '../../utils/config.dart';
 import '../../widgets/gradient_button.dart';
 
 class UpdateList extends StatefulWidget {
+  final String vmID;
   final List<UpdateData> selectedUpdateData;
 
-  const UpdateList({Key? key, required this.selectedUpdateData})
+  const UpdateList(
+      {Key? key, required this.selectedUpdateData, required this.vmID})
       : super(key: key);
 
   @override
@@ -220,7 +222,7 @@ class _UpdateListState extends State<UpdateList> {
   void updateStock() async {
     try {
       UserState userState = Provider.of<UserState>(context, listen: false);
-      String url = '${Config.apiLink}/suppliers/update/${userState.userId}';
+      String url = '${Config.apiLink}/suppliers/update/${widget.vmID}';
 
       var updateDataList = widget.selectedUpdateData.map((updateData) {
         return {

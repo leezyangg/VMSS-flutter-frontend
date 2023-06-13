@@ -275,7 +275,10 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
     Navigator.pushNamed(
       context,
       '/updatelist',
-      arguments: selectedUpdateData,
+      arguments: {
+        'selectedUpdateData': selectedUpdateData,
+        'barcode': widget.code,
+      },
     );
   }
 

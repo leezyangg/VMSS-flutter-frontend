@@ -70,11 +70,14 @@ class MyRouter {
         return MaterialPageRoute(
             builder: (context) => SupplierMenuList(code: barcode));
       case updateList:
+        final Map<String, dynamic> arguments =
+            setting.arguments as Map<String, dynamic>;
         final List<UpdateData> selectedUpdateData =
-            setting.arguments as List<UpdateData>;
+            arguments['selectedUpdateData'] as List<UpdateData>;
+        final String barcode = arguments['barcode'] as String;
         return MaterialPageRoute(
-            builder: (context) =>
-                UpdateList(selectedUpdateData: selectedUpdateData));
+            builder: (context) => UpdateList(
+                selectedUpdateData: selectedUpdateData, vmID: barcode));
       case updateSuccess:
         return MaterialPageRoute(
             builder: (context) => const UpdateSuccessfulPage());
