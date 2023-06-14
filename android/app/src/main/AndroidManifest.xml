@@ -2,7 +2,7 @@
     package="com.example.vemdora_flutter_frontend">
     <uses-permission android:name="android.permission.CAMERA"/>
    <application
-        android:label="vemdora_flutter_frontend"
+        android:label="Vemdora"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
