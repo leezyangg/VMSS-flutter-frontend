@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Vemdora',
             theme: ThemeData(
-              primaryColor: Colors.blue,
+              primaryColor: Colors.blue[50],
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
