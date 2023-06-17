@@ -204,7 +204,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
               iconSize: 35.0,
               color: Colors.black,
               onPressed: () {
-                Navigator.of(context).pushNamed('/suppliermain');
+                Navigator.of(context).pop();
               },
             ),
           ],

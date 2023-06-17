@@ -69,7 +69,9 @@ class _UpdateListState extends State<UpdateList> {
               iconSize: 35.0,
               color: Colors.black,
               onPressed: () {
-                Navigator.of(context).pushNamed('/usermain');
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).popAndPushNamed('/suppliermain');
               },
             ),
           ],
@@ -260,9 +262,31 @@ class _UpdateListState extends State<UpdateList> {
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);
-          Navigator.of(context).pushNamed('/updatesuccess');
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.popAndPushNamed(context, '/suppliermain');
+          Navigator.pushNamed(context, '/updatesuccess');
         } else {
-          print('Failed to place order. Error: ${response.statusCode}');
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Update Fail'),
+                content: Text(
+                    'Failed to update Stock. Error: ${response.statusCode}'),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).popAndPushNamed('/suppliermain');
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
         }
       }
     } catch (e) {

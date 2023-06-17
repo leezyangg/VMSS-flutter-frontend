@@ -164,7 +164,6 @@ class _OrderListState extends State<OrderList> {
       UserState userState = Provider.of<UserState>(context, listen: false);
       String url =
           '${Config.apiLink}/orders/${widget.vmID}/${userState.userId}';
-      print(url);
 
       var orderDataList = widget.selectedOrderData.map((orderData) {
         return {

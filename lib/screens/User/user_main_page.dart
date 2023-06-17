@@ -111,7 +111,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context); // Close the dialog
+                        Navigator.pop(context);
                       },
                       child: const Text('No'),
                     ),

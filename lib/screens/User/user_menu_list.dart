@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:vemdora_flutter_frontend/models/product.dart';
 import 'package:http/http.dart' as http;
@@ -9,9 +7,7 @@ import '../../utils/config.dart';
 class UserMenuList extends StatefulWidget {
   final String code;
 
-  const UserMenuList({Key? key, required this.code})
-      : super(key: key); // real path
-  // const UserMenuList({super.key});
+  const UserMenuList({Key? key, required this.code}) : super(key: key);
   @override
   State<UserMenuList> createState() => _UserMenuListState();
 }
@@ -55,8 +51,6 @@ class _UserMenuListState extends State<UserMenuList> {
       print('Failed to fetch products. Error: ${response.statusCode}');
     }
   }
-  //maintain the product quantity value
-  //show the dropdown list to choose the layer
 
   void showLayerDropdownMenu(BuildContext context) {
     showMenu<int>(
@@ -117,14 +111,10 @@ class _UserMenuListState extends State<UserMenuList> {
               Expanded(
                 child: buildItemContainer(product, quantity),
               ),
-              Expanded(
-                  child:
-                      Container()), // Empty container to take the remaining space
+              Expanded(child: Container()),
             ],
           );
         } else {
-          // If there are two items in the sublist
-          // Display them normally
           return Row(
             children: sublist.map((product) {
               int quantity = quantityMap[product.id] ??

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:vemdora_flutter_frontend/screens/qr_scanner_overlay.dart';
 import '../../providers/user_state.dart';
 import 'package:provider/provider.dart';
-
-const bgColor = Color(0xfffafafa);
 
 class QRScanner extends StatefulWidget {
   const QRScanner({super.key});
@@ -25,7 +24,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     UserState userState = Provider.of<UserState>(context, listen: false);
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: const Color.fromRGBO(188, 219, 255, 1),
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -70,25 +69,36 @@ class _QRScannerState extends State<QRScanner> {
             ),
             Expanded(
               flex: 4,
-              child: MobileScanner(
-                  allowDuplicates: true,
-                  controller: cameraController,
-                  onDetect: (barcode, args) {
-                    if (!isScanCompleted) {
-                      String code = barcode.rawValue ?? '---';
-                      isScanCompleted = true;
-                      if (userState.userType == UserType.publicUser) {
-                        Navigator.of(context)
-                            .popAndPushNamed('/usermenulist', arguments: code);
-                      } else {
-                        Navigator.of(context).popAndPushNamed(
-                            '/suppliermenulist',
-                            arguments: code);
-                      }
+              child: Stack(
+                children: [
+                  MobileScanner(
+                    allowDuplicates: true,
+                    controller: cameraController,
+                    onDetect: (barcode, args) async {
+                      if (!isScanCompleted) {
+                        String code = barcode.rawValue ?? '---';
+                        isScanCompleted = true;
 
-                      cameraController.dispose();
-                    }
-                  }),
+                        await Future.delayed(const Duration(milliseconds: 500));
+
+                        if (userState.userType == UserType.publicUser) {
+                          Navigator.of(context).popAndPushNamed('/usermenulist',
+                              arguments: code);
+                        } else {
+                          Navigator.of(context).popAndPushNamed(
+                              '/suppliermenulist',
+                              arguments: code);
+                        }
+
+                        cameraController.dispose();
+                      }
+                    },
+                  ),
+                  QRScannerOverlay(
+                    overlayColour: const Color.fromRGBO(188, 219, 255, 1),
+                  )
+                ],
+              ),
             ),
             Expanded(
                 child: Container(

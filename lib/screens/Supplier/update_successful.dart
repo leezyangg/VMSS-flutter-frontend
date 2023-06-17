@@ -20,7 +20,7 @@ class UpdateSuccessfulPage extends StatelessWidget {
         leading: IconButton(
           onPressed: () {
             // Add logic here
-            Navigator.of(context).pushNamed('/suppliermain');
+            Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back,
