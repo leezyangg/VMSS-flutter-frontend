@@ -79,10 +79,11 @@ class _QRScannerState extends State<QRScanner> {
                       isScanCompleted = true;
                       if (userState.userType == UserType.publicUser) {
                         Navigator.of(context)
-                            .pushNamed('/usermenulist', arguments: code);
+                            .popAndPushNamed('/usermenulist', arguments: code);
                       } else {
-                        Navigator.of(context)
-                            .pushNamed('/suppliermenulist', arguments: code);
+                        Navigator.of(context).popAndPushNamed(
+                            '/suppliermenulist',
+                            arguments: code);
                       }
 
                       cameraController.dispose();
@@ -93,7 +94,7 @@ class _QRScannerState extends State<QRScanner> {
                 child: Container(
               alignment: Alignment.center,
               child: const Text(
-                'Developed by Goon Ying Xin',
+                'Powered by Vemdora',
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 14,

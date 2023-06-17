@@ -19,7 +19,7 @@ class OrderSuccessfulPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/usermain');
+            Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back,

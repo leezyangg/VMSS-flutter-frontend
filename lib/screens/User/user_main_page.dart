@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:vemdora_flutter_frontend/screens/login.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart';
@@ -11,6 +12,7 @@ import '../../providers/user_state.dart';
 class UserMainPage extends StatelessWidget {
   const UserMainPage({Key? key});
 
+  // Fetch wallet amount
   Future<void> fetchWalletData(BuildContext context) async {
     UserState userState = Provider.of<UserState>(context, listen: false);
     String userID = userState.userId;
@@ -89,7 +91,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/');
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Sign Out'),
+                  content: Text('Are you sure You want to Sign Out?'),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => (const Login())),
+                          (route) => false,
+                        );
+                      },
+                      child: const Text('Yes'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Close the dialog
+                      },
+                      child: const Text('No'),
+                    ),
+                  ],
+                );
+              },
+            );
           },
           icon: Icon(
             Icons.home_outlined,

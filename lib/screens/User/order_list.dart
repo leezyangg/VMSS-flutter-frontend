@@ -3,7 +3,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-// import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
 import "../../models/product.dart";
 import '../../providers/user_state.dart';
 import "../../widgets/gradient_button.dart";
@@ -54,7 +53,9 @@ class _OrderListState extends State<OrderList> {
               color: Colors.black,
               onPressed: () {
                 // Logic here
-                Navigator.of(context).pushNamed('/usermain');
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).popAndPushNamed('/usermain');
               },
             ),
           ],
@@ -224,25 +225,21 @@ class _OrderListState extends State<OrderList> {
         Response response = await post(Uri.parse(url),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode(body));
-        print(url);
         print(jsonEncode(body));
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);
-          // Navigate to the order success page and remove the current page from the stack
-          Navigator.of(context).pushNamed('/orderSuccess');
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => (const OrderSuccessfulPage())),
-          //   (route) => false,
-          // );
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.pop(context);
+          Navigator.popAndPushNamed(context, '/usermain');
+          Navigator.pushNamed(context, '/ordersuccess');
         } else {
           showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Top Up Fail'),
+                title: const Text('Order Fail'),
                 content: Text(
                     'Failed to place order. Error: ${response.statusCode}'),
                 actions: [
@@ -250,7 +247,7 @@ class _OrderListState extends State<OrderList> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       Navigator.of(context).pop();
-                      Navigator.of(context).pushNamed('/usermain');
+                      Navigator.of(context).popAndPushNamed('/usermain');
                     },
                     child: const Text('OK'),
                   ),

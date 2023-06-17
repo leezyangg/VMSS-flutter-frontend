@@ -122,7 +122,7 @@ class WalletTopUpPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed('/usermain');
+                    Navigator.popAndPushNamed(context, '/usermain');
                   },
                   child: const Text('OK'),
                 ),
@@ -141,7 +141,6 @@ class WalletTopUpPage extends StatelessWidget {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   },
                   child: const Text('OK'),

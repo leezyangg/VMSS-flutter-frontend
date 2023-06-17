@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vemdora_flutter_frontend/screens/login.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
 import 'package:http/http.dart';
 import '../utils/config.dart';
@@ -39,8 +40,11 @@ class _SignUpState extends State<SignUp> {
               actions: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => (const Login())),
+                      (route) => false,
+                    );
                   },
                   child: const Text('OK'),
                 ),

@@ -204,7 +204,7 @@ class _UserMenuListState extends State<UserMenuList> {
               iconSize: 35.0,
               color: Colors.black,
               onPressed: () {
-                Navigator.of(context).pushNamed('/usermain');
+                Navigator.of(context).pop();
               },
             ),
           ],

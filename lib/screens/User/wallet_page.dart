@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
-
 import '../../providers/user_state.dart';
 
 class WalletPage extends StatelessWidget {
@@ -18,7 +17,7 @@ class WalletPage extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.home_outlined,
@@ -62,7 +61,7 @@ class WalletPage extends StatelessWidget {
               PurpleGradientButton(
                 buttonText: 'Top Up',
                 onPress: () {
-                  Navigator.of(context).pushNamed('/wallettopup');
+                  Navigator.popAndPushNamed(context, '/wallettopup');
                 },
               ),
               const SizedBox(

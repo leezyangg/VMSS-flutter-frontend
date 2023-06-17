@@ -50,6 +50,7 @@ class _LoginState extends State<Login> {
           Navigator.of(context).pushNamed('/suppliermain');
         }
       } else {
+        // Handle Invalid Login Attempt
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -102,6 +103,7 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(
                   controller: emailController,
+                  enableSuggestions: true,
                   decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
