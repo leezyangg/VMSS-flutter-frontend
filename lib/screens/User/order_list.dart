@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import "package:flutter/material.dart";
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+// import 'package:vemdora_flutter_frontend/screens/User/order_successful.dart';
 import "../../models/product.dart";
 import '../../providers/user_state.dart';
 import "../../widgets/gradient_button.dart";
@@ -191,6 +193,33 @@ class _OrderListState extends State<OrderList> {
           },
         );
       } else {
+        // Show loading indicator
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SpinKitCircle(
+                      color: Colors.blue,
+                      size: 50.0,
+                    ),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'Placing Order...',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+
         var body = {'items': orderDataList};
         Response response = await post(Uri.parse(url),
             headers: {'Content-Type': 'application/json'},
@@ -200,8 +229,35 @@ class _OrderListState extends State<OrderList> {
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);
-          Navigator.of(context).pushNamed('/ordersuccess');
+          // Navigate to the order success page and remove the current page from the stack
+          Navigator.of(context).pushNamed('/orderSuccess');
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => (const OrderSuccessfulPage())),
+          //   (route) => false,
+          // );
         } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Top Up Fail'),
+                content: Text(
+                    'Failed to place order. Error: ${response.statusCode}'),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed('/usermain');
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
           print('Failed to place order. Error: ${response.statusCode}');
         }
       }

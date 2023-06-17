@@ -111,10 +111,25 @@ class WalletTopUpPage extends StatelessWidget {
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(body));
       if (response.statusCode == 200) {
-        print('Top Up successfully!');
-        print(response.body);
-        Navigator.of(context).pop();
-        Navigator.of(context).pushNamed('/usermain');
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Top Up Successful'),
+              content: const Text('You have top up successfully!'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed('/usermain');
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
         showDialog(
           context: context,
