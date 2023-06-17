@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:vemdora_flutter_frontend/utils/config.dart';
 import 'package:vemdora_flutter_frontend/widgets/qr_scanner_overlay.dart';
 import '../../providers/user_state.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +17,43 @@ class QRScanner extends StatefulWidget {
 
 class _QRScannerState extends State<QRScanner> {
   bool isScanCompleted = false;
+  MobileScannerController cameraController = MobileScannerController();
+  List<String> vmIDList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchVmIDList();
+  }
 
   void closeScreen() {
     isScanCompleted = false;
   }
 
-  MobileScannerController cameraController = MobileScannerController();
+  Future<void> fetchVmIDList() async {
+    try {
+      String myConfig = Config.apiLink;
+      final response = await get(Uri.parse('$myConfig/vendingMachines'));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final List<String> fetchedVmIDList = [];
+
+        for (var item in data) {
+          String vmID = item['vendingMachineID'].toString();
+          fetchedVmIDList.add(vmID);
+        }
+
+        setState(() {
+          vmIDList = fetchedVmIDList;
+        });
+      } else {
+        print('Failed to fetch vmID list. Error: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Failed to fetch vmID list. Error: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +93,7 @@ class _QRScannerState extends State<QRScanner> {
                     height: 10,
                   ),
                   Text(
-                    'Scanning will be started automatically',
+                    'Scan QR Code on Vending Machine',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -81,15 +116,41 @@ class _QRScannerState extends State<QRScanner> {
 
                         await Future.delayed(const Duration(milliseconds: 500));
 
-                        if (userState.userType == UserType.publicUser) {
-                          Navigator.of(context).popAndPushNamed('/usermenulist',
-                              arguments: code);
+                        if (vmIDList.contains(code)) {
+                          if (userState.userType == UserType.publicUser) {
+                            Navigator.of(context).popAndPushNamed(
+                                '/usermenulist',
+                                arguments: code);
+                          } else {
+                            Navigator.of(context).popAndPushNamed(
+                                '/suppliermenulist',
+                                arguments: code);
+                          }
+                          cameraController.dispose();
                         } else {
-                          Navigator.of(context).popAndPushNamed(
-                              '/suppliermenulist',
-                              arguments: code);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Invalid QR Code'),
+                                content: const Text(
+                                  'QR Code Scanned is not regconised by Vemdora',
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 500));
+                                      closeScreen();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
-                        cameraController.dispose();
                       }
                     },
                   ),
