@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:vemdora_flutter_frontend/screens/qr_scanner_overlay.dart';
+import 'package:vemdora_flutter_frontend/widgets/qr_scanner_overlay.dart';
 import '../../providers/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -89,7 +89,6 @@ class _QRScannerState extends State<QRScanner> {
                               '/suppliermenulist',
                               arguments: code);
                         }
-
                         cameraController.dispose();
                       }
                     },

@@ -57,9 +57,13 @@ class MyRouter {
         final List<OrderData> selectedOrderData =
             arguments['selectedOrderData'] as List<OrderData>;
         final String barcode = arguments['barcode'] as String;
+        final String vendingMachineName =
+            arguments['vendingMachineName'] as String;
         return MaterialPageRoute(
-          builder: (context) =>
-              OrderList(selectedOrderData: selectedOrderData, vmID: barcode),
+          builder: (context) => OrderList(
+              selectedOrderData: selectedOrderData,
+              vmID: barcode,
+              vmName: vendingMachineName),
         );
       case orderSuccessPage:
         return MaterialPageRoute(
@@ -79,9 +83,14 @@ class MyRouter {
         final List<UpdateData> selectedUpdateData =
             arguments['selectedUpdateData'] as List<UpdateData>;
         final String barcode = arguments['barcode'] as String;
+        final String vmName = arguments['vmName'] as String;
         return MaterialPageRoute(
-            builder: (context) => UpdateList(
-                selectedUpdateData: selectedUpdateData, vmID: barcode));
+          builder: (context) => UpdateList(
+            selectedUpdateData: selectedUpdateData,
+            vmID: barcode,
+            vmName: vmName,
+          ),
+        );
       case updateSuccess:
         return MaterialPageRoute(
             builder: (context) => const UpdateSuccessfulPage());

@@ -11,10 +11,14 @@ import '../../widgets/gradient_button.dart';
 
 class UpdateList extends StatefulWidget {
   final String vmID;
+  final String vmName;
   final List<UpdateData> selectedUpdateData;
 
   const UpdateList(
-      {Key? key, required this.selectedUpdateData, required this.vmID})
+      {Key? key,
+      required this.selectedUpdateData,
+      required this.vmID,
+      required this.vmName})
       : super(key: key);
 
   @override
@@ -56,8 +60,7 @@ class _UpdateListState extends State<UpdateList> {
         title: Row(
           children: [
             Text(
-              // Mock Data
-              "Welcome to UM - VM2!",
+              "${widget.vmName}",
               style: TextStyle(
                 color: Colors.blue[900],
                 fontSize: 20.0,

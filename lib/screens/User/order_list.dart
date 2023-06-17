@@ -13,8 +13,12 @@ import 'dart:convert';
 class OrderList extends StatefulWidget {
   final String vmID;
   final List<OrderData> selectedOrderData;
+  final String vmName;
   const OrderList(
-      {Key? key, required this.selectedOrderData, required this.vmID})
+      {Key? key,
+      required this.selectedOrderData,
+      required this.vmID,
+      required this.vmName})
       : super(key: key);
 
   @override
@@ -40,7 +44,7 @@ class _OrderListState extends State<OrderList> {
         title: Row(
           children: [
             Text(
-              "Welcome to UM - VM2!",
+              "${widget.vmName}!",
               style: TextStyle(
                 color: Colors.blue[900],
                 fontSize: 20.0,

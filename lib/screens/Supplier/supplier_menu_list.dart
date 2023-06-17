@@ -16,13 +16,32 @@ class SupplierMenuList extends StatefulWidget {
 }
 
 class _SupplierMenuListState extends State<SupplierMenuList> {
+  String vendingMachineName = '';
   int selectedLayer = 1;
   Map<int, int> quantityMap = {};
   List<UpdateData> selectedOrders = [];
+
   @override
   void initState() {
     super.initState();
+    fetchVendingMachineName();
     fetchProducts();
+  }
+
+  Future<void> fetchVendingMachineName() async {
+    String myConfig = Config.apiLink;
+    final response =
+        await http.get(Uri.parse('$myConfig/vendingMachines/${widget.code}'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final String name = data['vendingMachineName'];
+      setState(() {
+        vendingMachineName = name;
+      });
+    } else {
+      print(
+          'Failed to fetch vending machine name. Error: ${response.statusCode}');
+    }
   }
 
   Future<void> fetchProducts() async {
@@ -192,7 +211,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
               width: 15.0,
             ),
             Text(
-              "Welcome to UM - VM2!",
+              "$vendingMachineName",
               style: TextStyle(
                 color: Colors.blue[900],
                 fontSize: 20.0,
@@ -278,6 +297,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
       arguments: {
         'selectedUpdateData': selectedUpdateData,
         'barcode': widget.code,
+        'vmName': vendingMachineName,
       },
     );
   }
