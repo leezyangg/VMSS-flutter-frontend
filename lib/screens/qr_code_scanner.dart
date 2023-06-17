@@ -141,7 +141,7 @@ class _QRScannerState extends State<QRScanner> {
                                     onPressed: () async {
                                       Navigator.of(context).pop();
                                       await Future.delayed(
-                                          const Duration(milliseconds: 500));
+                                          const Duration(milliseconds: 1000));
                                       closeScreen();
                                     },
                                     child: const Text('OK'),

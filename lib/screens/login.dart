@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
         } else if (userTypeString == 'Supplier') {
           userType = UserType.supplier;
         } else {
-          userType = UserType.publicUser; // default
+          userType = UserType.publicUser;
         }
         UserState userState = Provider.of<UserState>(context, listen: false);
         userState.setUserType(userType);
