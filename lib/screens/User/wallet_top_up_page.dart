@@ -105,11 +105,17 @@ class WalletTopUpPage extends StatelessWidget {
 
   void topUp(int value, String userID, BuildContext context) async {
     try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator());
+          });
       String url = '${Config.apiLink}/ewallets/$userID';
       var body = {"topUpAmount": value};
       Response response = await post(Uri.parse(url),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode(body));
+      Navigator.of(context).pop();
       if (response.statusCode == 200) {
         showDialog(
           context: context,

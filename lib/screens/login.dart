@@ -24,6 +24,12 @@ class _LoginState extends State<Login> {
   void login(String email, password) async {
     String myConfig = Config.apiLink;
     try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator());
+          });
+
       Response response = await get(
         Uri.parse('$myConfig/users?email=$email&password=$password'),
       );
@@ -44,6 +50,7 @@ class _LoginState extends State<Login> {
         userState.setUserType(userType);
         userState.setUserId(userId.toString());
         userState.setUserName(userName.toString());
+        Navigator.of(context).pop();
         if (userTypeString == 'Public User') {
           Navigator.of(context).pushNamed('/usermain');
         } else {

@@ -111,11 +111,16 @@ class _QRScannerState extends State<QRScanner> {
                     controller: cameraController,
                     onDetect: (barcode, args) async {
                       if (!isScanCompleted) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Center(child: CircularProgressIndicator());
+                            });
                         String code = barcode.rawValue ?? '---';
                         isScanCompleted = true;
 
                         await Future.delayed(const Duration(milliseconds: 500));
-
+                        Navigator.of(context).pop();
                         if (vmIDList.contains(code)) {
                           if (userState.userType == UserType.publicUser) {
                             Navigator.of(context).popAndPushNamed(
