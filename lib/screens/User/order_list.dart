@@ -38,7 +38,7 @@ class _OrderListState extends State<OrderList> {
       backgroundColor: const Color.fromRGBO(188, 219, 255, 1),
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black, // Set the desired color for the leading icon
+          color: Colors.black,
         ),
         backgroundColor: Colors.white,
         title: Row(
@@ -95,8 +95,8 @@ class _OrderListState extends State<OrderList> {
                         contentPadding: EdgeInsets.zero,
                         leading: Image.network(
                           orderData.product.photoUrl,
-                          width: 90, // Adjust the width for a larger image
-                          height: 100, // Adjust the height for a larger image
+                          width: 90,
+                          height: 100,
                         ),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

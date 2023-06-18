@@ -14,47 +14,25 @@ class UpdateList extends StatefulWidget {
   final String vmName;
   final List<UpdateData> selectedUpdateData;
 
-  const UpdateList(
-      {Key? key,
-      required this.selectedUpdateData,
-      required this.vmID,
-      required this.vmName})
-      : super(key: key);
+  const UpdateList({
+    Key? key,
+    required this.selectedUpdateData,
+    required this.vmID,
+    required this.vmName,
+  }) : super(key: key);
 
   @override
   State<UpdateList> createState() => _UpdateListState();
 }
 
 class _UpdateListState extends State<UpdateList> {
-  bool isEditing = false;
-  TextEditingController remarkController = TextEditingController();
-
-  @override
-  void dispose() {
-    remarkController.dispose();
-    super.dispose();
-  }
-
-  void startEditing() {
-    setState(() {
-      isEditing = true;
-    });
-  }
-
-  void stopEditing() {
-    setState(() {
-      isEditing = false;
-      remarkController.clear();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(188, 219, 255, 1),
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black, // Set the desired color for the leading icon
+          color: Colors.black,
         ),
         backgroundColor: Colors.white,
         title: Row(
@@ -100,110 +78,69 @@ class _UpdateListState extends State<UpdateList> {
               itemCount: widget.selectedUpdateData.length,
               itemBuilder: (context, index) {
                 UpdateData updateData = widget.selectedUpdateData[index];
-                return Card(
-                  color: Colors.white,
-                  elevation: 2,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Image.network(
-                                updateData.product.photoUrl,
-                                width: 90,
-                                height: 100,
-                              ),
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'RM${updateData.product.price.toStringAsFixed(2)}',
+                return Container(
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 2,
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: Image.network(
+                                  updateData.product.photoUrl,
+                                  width: 90,
+                                  height: 100,
+                                ),
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'RM${updateData.product.price.toStringAsFixed(2)}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 20,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                        Text(
+                                          updateData.product.name,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        '${updateData.quantity}',
                                         style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
                                           fontSize: 20,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                      Text(
-                                        updateData.product.name,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      '${updateData.quantity}',
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 40,
-                        color: Colors.grey,
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 12),
-                            const Icon(Icons.edit, color: Colors.white),
-                            const SizedBox(width: 4),
-                            Expanded(
-                              child: isEditing
-                                  ? TextField(
-                                      controller: remarkController,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        contentPadding: EdgeInsets.all(0),
-                                      ),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      autofocus: true,
-                                      onSubmitted: (_) => stopEditing(),
-                                    )
-                                  : InkWell(
-                                      onTap: startEditing,
-                                      child: const Text(
-                                        'Remark',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.grey,
                                         ),
                                       ),
                                     ),
-                            ),
-                            if (isEditing)
-                              IconButton(
-                                icon: const Icon(Icons.check),
-                                color: Colors.white,
-                                onPressed: stopEditing,
+                                  ],
+                                ),
                               ),
-                            const SizedBox(width: 12),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -243,8 +180,8 @@ class _UpdateListState extends State<UpdateList> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text('Empty Update List'),
-              content:
-                  const Text('Please select the stock before confirm update'),
+              content: const Text(
+                  'Please select the stock before confirming the update'),
               actions: [
                 ElevatedButton(
                   onPressed: () {
@@ -258,10 +195,12 @@ class _UpdateListState extends State<UpdateList> {
         );
       } else {
         var body = {'items': updateDataList};
-        print(body);
-        Response response = await post(Uri.parse(url),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(body));
+        Response response = await post(
+          Uri.parse(url),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(body),
+        );
+        print(jsonEncode(body));
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);
@@ -274,9 +213,9 @@ class _UpdateListState extends State<UpdateList> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Update Fail'),
+                title: const Text('Update Failed'),
                 content: Text(
-                    'Failed to update Stock. Error: ${response.statusCode}'),
+                    'Failed to update stock. Error: ${response.statusCode}'),
                 actions: [
                   ElevatedButton(
                     onPressed: () {
