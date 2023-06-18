@@ -18,13 +18,12 @@ Run the following commands from your terminal:
 ```
 git clone https://github.com/leezyangg/VMSS-flutter-frontend.git
 cd VMSS-flutter-frontend
-flutter pub get
 ```
-
-After that, install and use the application by running the following command:
-
-`flutter run`
-
+After that, install the all the dependencies in pubspec.yaml and install the application for usage by running the following command:
+```
+flutter pub get
+flutter run
+```
 
 ## Related
 
