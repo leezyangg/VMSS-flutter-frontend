@@ -101,7 +101,7 @@ class _UpdateListState extends State<UpdateList> {
               itemBuilder: (context, index) {
                 UpdateData updateData = widget.selectedUpdateData[index];
                 return Card(
-                  color: Colors.white, // Apply the gray color to the Card
+                  color: Colors.white,
                   elevation: 2,
                   margin:
                       const EdgeInsets.symmetric(horizontal: 22, vertical: 4),

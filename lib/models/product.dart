@@ -4,6 +4,7 @@ class Product {
   final String photoUrl;
   final double price;
   final int layer;
+  final int quantityAvailable;
 
   Product({
     required this.id,
@@ -11,6 +12,7 @@ class Product {
     required this.photoUrl,
     required this.price,
     required this.layer,
+    required this.quantityAvailable,
   });
 }
 

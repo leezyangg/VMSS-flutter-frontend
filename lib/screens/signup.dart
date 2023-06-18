@@ -146,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                 height: 10,
               ),
 
-              // phone number text field
+              // username text field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: TextField(

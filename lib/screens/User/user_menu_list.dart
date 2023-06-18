@@ -54,6 +54,7 @@ class _UserMenuListState extends State<UserMenuList> {
         final product = Product(
           id: item['stockID'],
           name: item['stockName'],
+          quantityAvailable: item['pivot']['stockQuantity'],
           photoUrl: "$imagePreLink${item['imageURL']}",
           price: double.parse(item['sellPrice'].toString()),
           layer: item['level'],
@@ -238,9 +239,12 @@ class _UserMenuListState extends State<UserMenuList> {
 
   // quantity selected
   Widget buildQuantityRow(Product product, int quantity) {
+    bool isQuantityAvailable = quantity < product.quantityAvailable;
     void incrementQuantity() {
       setState(() {
-        quantityMap[product.id] = (quantityMap[product.id] ?? 0) + 1;
+        if (isQuantityAvailable) {
+          quantityMap[product.id] = (quantityMap[product.id] ?? 0) + 1;
+        }
       });
     }
 
@@ -262,7 +266,7 @@ class _UserMenuListState extends State<UserMenuList> {
         Text(quantity.toString()),
         IconButton(
           icon: const Icon(Icons.add),
-          onPressed: incrementQuantity,
+          onPressed: isQuantityAvailable ? incrementQuantity : null,
         ),
       ],
     );

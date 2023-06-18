@@ -58,6 +58,7 @@ class _SupplierMenuListState extends State<SupplierMenuList> {
         final product = Product(
           id: item['stockID'],
           name: item['stockName'],
+          quantityAvailable: item['pivot']['stockQuantity'],
           photoUrl: "$imagePreLink${item['imageURL']}",
           price: double.parse(item['sellPrice'].toString()),
           layer: item['level'],
