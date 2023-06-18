@@ -56,6 +56,7 @@ class _LoginState extends State<Login> {
           Navigator.of(context).pushNamed('/suppliermain');
         }
       } else {
+        Navigator.of(context).pop();
         // Handle Invalid Login Attempt
         showDialog(
           context: context,

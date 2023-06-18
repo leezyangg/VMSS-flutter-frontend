@@ -21,6 +21,11 @@ class _SignUpState extends State<SignUp> {
 
   void signup(String email, username, password) async {
     try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(child: CircularProgressIndicator());
+          });
       var body = {'email': email, 'userName': username, 'password': password};
       Response response = await post(
         Uri.parse('${Config.apiLink}/users'),
@@ -28,6 +33,7 @@ class _SignUpState extends State<SignUp> {
         body: jsonEncode(body),
       );
       if (response.statusCode == 200) {
+        Navigator.of(context).pop();
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -50,6 +56,7 @@ class _SignUpState extends State<SignUp> {
           },
         );
       } else {
+        Navigator.of(context).pop();
         showDialog(
           context: context,
           builder: (BuildContext context) {
