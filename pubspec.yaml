@@ -58,7 +58,7 @@ flutter_native_splash:
   web: true
 
   color: "#BCDBFF"
-  image: "assets/images/vemdora_icon.png"
+  image: "assets/images/vemdora_splash.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
