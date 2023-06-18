@@ -1,12 +1,12 @@
-<h1 align="center">
+<div align="center">
   <br>
   <img src="assets/images/vemdora_icon.png" alt="Vemdora Icon" width="350">
   <br>
-</h1>
+</div>
 
-# vemdora_flutter_frontend
+## Vemdora Frontend (VMSS)
 
-A Mobile Application, namely Vending Machine Sales System (VMSS) 
+A Mobile Application built with Flutter, namely Vending Machine Sales System (VMSS) 
 
 * University students of Malaysia to purchase products of vending machines
 * Supplier of vending machines to restock
@@ -23,12 +23,14 @@ $ git clone https://github.com/leezyangg/VMSS-flutter-frontend.git
 $ cd VMSS-flutter-frontend
 ```
 
-Download Android Studio or Visual Studio with Flutter editor plugins. After that, open the project and install dependencies from pubspec.yaml by running the following command:
+After that, open the project and install dependencies from pubspec.yaml by running the following command:
 ```bash
 $ flutter pub get
 ```
 
 ## Related
+
+> **DISCLAIMER:** It is necessary to setup the backend server in order to use mobile app.
 
 [Vemdora - Backend](https://github.com/leezyangg/vemdora-backend) - Vemdora Laravel Backend.
 
