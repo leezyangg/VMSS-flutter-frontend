@@ -200,24 +200,32 @@ class _UserMenuListState extends State<UserMenuList> {
             const SizedBox(
               width: 15.0,
             ),
-            Text(
-              "$vendingMachineName",
-              style: TextStyle(
-                color: Colors.blue[900],
-                fontSize: 20.0,
+            Flexible(
+              child: Tooltip(
+                message: vendingMachineName,
+                child: Text(
+                  vendingMachineName,
+                  style: TextStyle(
+                    color: Colors.blue[900],
+                    fontSize: 20.0,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.home_outlined),
-              iconSize: 35.0,
-              color: Colors.black,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_outlined),
+            iconSize: 35.0,
+            color: Colors.black,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [

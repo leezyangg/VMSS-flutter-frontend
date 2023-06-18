@@ -37,26 +37,34 @@ class _UpdateListState extends State<UpdateList> {
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            Text(
-              "${widget.vmName}",
-              style: TextStyle(
-                color: Colors.blue[900],
-                fontSize: 20.0,
+            Flexible(
+              child: Tooltip(
+                message: widget.vmName,
+                child: Text(
+                  widget.vmName,
+                  style: TextStyle(
+                    color: Colors.blue[900],
+                    fontSize: 20.0,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.home_outlined),
-              iconSize: 35.0,
-              color: Colors.black,
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Navigator.of(context).popAndPushNamed('/suppliermain');
-              },
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_outlined),
+            iconSize: 35.0,
+            color: Colors.black,
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).popAndPushNamed('/suppliermain');
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -194,6 +202,11 @@ class _UpdateListState extends State<UpdateList> {
           },
         );
       } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Center(child: CircularProgressIndicator());
+            });
         var body = {'items': updateDataList};
         Response response = await post(
           Uri.parse(url),
@@ -201,6 +214,7 @@ class _UpdateListState extends State<UpdateList> {
           body: jsonEncode(body),
         );
         print(jsonEncode(body));
+        Navigator.of(context).pop();
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);

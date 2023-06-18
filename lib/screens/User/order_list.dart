@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
 import "package:flutter/material.dart";
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import "../../models/product.dart";
 import '../../providers/user_state.dart';
@@ -43,27 +42,35 @@ class _OrderListState extends State<OrderList> {
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            Text(
-              "${widget.vmName}",
-              style: TextStyle(
-                color: Colors.blue[900],
-                fontSize: 20.0,
+            Flexible(
+              child: Tooltip(
+                message: widget.vmName,
+                child: Text(
+                  widget.vmName,
+                  style: TextStyle(
+                    color: Colors.blue[900],
+                    fontSize: 20.0,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.home_outlined),
-              iconSize: 35.0,
-              color: Colors.black,
-              onPressed: () {
-                // Logic here
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-                Navigator.of(context).popAndPushNamed('/usermain');
-              },
             ),
           ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_outlined),
+            iconSize: 35.0,
+            color: Colors.black,
+            onPressed: () {
+              // Logic here
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).popAndPushNamed('/usermain');
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -199,40 +206,20 @@ class _OrderListState extends State<OrderList> {
       } else {
         // Show loading indicator
         showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return Dialog(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SpinKitCircle(
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Placing Order...',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
+            context: context,
+            builder: (context) {
+              return Center(child: CircularProgressIndicator());
+            });
 
         var body = {'items': orderDataList};
         Response response = await post(Uri.parse(url),
             headers: {'Content-Type': 'application/json'},
             body: jsonEncode(body));
         print(jsonEncode(body));
+        Navigator.pop(context);
         if (response.statusCode == 200) {
           print('Order placed successfully!');
           print(response.body);
-          Navigator.pop(context);
           Navigator.pop(context);
           Navigator.pop(context);
           Navigator.popAndPushNamed(context, '/usermain');
