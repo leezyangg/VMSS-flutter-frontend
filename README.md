@@ -15,18 +15,16 @@ A Mobile Application built with Flutter, namely Vending Machine Sales System (VM
 
 Run the following commands from your terminal:
 
-```bash
-# Clone this repository
-$ git clone https://github.com/leezyangg/VMSS-flutter-frontend.git
-
-# Go into the repository
-$ cd VMSS-flutter-frontend
+```
+git clone https://github.com/leezyangg/VMSS-flutter-frontend.git
+cd VMSS-flutter-frontend
+flutter pub get
 ```
 
-After that, open the project and install dependencies from pubspec.yaml by running the following command:
-```bash
-$ flutter pub get
-```
+After that, install and use the application by running the following command:
+
+`flutter run`
+
 
 ## Related
 
