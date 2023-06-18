@@ -20,7 +20,7 @@ class WalletPage extends StatelessWidget {
             Navigator.pop(context);
           },
           icon: Icon(
-            Icons.home_outlined,
+            Icons.arrow_back_rounded,
             color: Colors.grey[800],
             size: 33,
             weight: 0.00005,
@@ -34,7 +34,10 @@ class WalletPage extends StatelessWidget {
               const SizedBox(
                 height: 100,
               ),
-              Image.asset('assets/images/wallet.png'),
+              Hero(
+                tag: 'wallet icon',
+                child: Image.asset('assets/images/wallet.png'),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -61,7 +64,8 @@ class WalletPage extends StatelessWidget {
               PurpleGradientButton(
                 buttonText: 'Top Up',
                 onPress: () {
-                  Navigator.popAndPushNamed(context, '/wallettopup');
+                  Navigator.of(context).pushNamed('/wallettopup');
+                  // Navigator.popAndPushNamed(context, '/wallettopup');
                 },
               ),
               const SizedBox(

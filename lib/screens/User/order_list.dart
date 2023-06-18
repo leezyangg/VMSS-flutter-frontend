@@ -44,7 +44,7 @@ class _OrderListState extends State<OrderList> {
         title: Row(
           children: [
             Text(
-              "${widget.vmName}!",
+              "${widget.vmName}",
               style: TextStyle(
                 color: Colors.blue[900],
                 fontSize: 20.0,

@@ -122,6 +122,7 @@ class WalletTopUpPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                     Navigator.popAndPushNamed(context, '/usermain');
                   },
                   child: const Text('OK'),

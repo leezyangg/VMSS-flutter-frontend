@@ -45,7 +45,10 @@ class UserMainPage extends StatelessWidget {
               const SizedBox(
                 height: 70,
               ),
-              Image.asset('assets/images/vemdora_icon.png'),
+              Hero(
+                tag: 'vemdora icon',
+                child: Image.asset('assets/images/vemdora_icon.png'),
+              ),
               PurpleGradientButton(
                 buttonText: 'Scan QR Code',
                 onPress: () {
@@ -127,14 +130,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ],
-      leading: IconButton(
-        onPressed: () {
+      leading: GestureDetector(
+        onTap: () {
           Navigator.of(context).pushNamed('/wallet');
         },
-        icon: Icon(
-          Icons.account_balance_wallet_outlined,
-          color: Colors.grey[700],
-          size: 33,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Hero(
+            tag: 'wallet icon',
+            child: Image.asset(
+              'assets/images/wallet.png',
+              width: 33,
+              height: 33,
+              color: Colors.grey[700],
+            ),
+          ),
         ),
       ),
     );

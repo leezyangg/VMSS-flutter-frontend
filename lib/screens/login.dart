@@ -83,7 +83,10 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               // vemdora icon
-              Image.asset('assets/images/vemdora_icon.png'),
+              Hero(
+                tag: 'vemdora icon',
+                child: Image.asset('assets/images/vemdora_icon.png'),
+              ),
 
               // welcome text
               Text(

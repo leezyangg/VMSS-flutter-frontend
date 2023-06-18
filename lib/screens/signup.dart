@@ -101,7 +101,10 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: [
               // vemdora icon
-              Image.asset('assets/images/vemdora_icon.png'),
+              Hero(
+                tag: 'vemdora icon',
+                child: Image.asset('assets/images/vemdora_icon.png'),
+              ),
 
               // welcome text
               Text(
