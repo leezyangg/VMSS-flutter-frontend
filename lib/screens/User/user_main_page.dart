@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors, avoid_print
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:vemdora_flutter_frontend/screens/login.dart';

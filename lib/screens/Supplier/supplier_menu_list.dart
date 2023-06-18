@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:vemdora_flutter_frontend/models/product.dart';
 import 'package:http/http.dart' as http;
