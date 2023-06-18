@@ -45,9 +45,10 @@ class SupplierMainPage extends StatelessWidget {
                 },
               );
             },
-            icon: const Icon(
-              Icons.logout_rounded,
-              color: Colors.black,
+            icon: Icon(
+              Icons.logout,
+              color: Colors.grey[800],
+              size: 26,
             ),
           )
         ],
@@ -61,7 +62,10 @@ class SupplierMainPage extends StatelessWidget {
               const SizedBox(
                 height: 70,
               ),
-              Image.asset('assets/images/vemdora_icon.png'),
+              Hero(
+                tag: 'vemdora icon',
+                child: Image.asset('assets/images/vemdora_icon.png'),
+              ),
               PurpleGradientButton(
                 buttonText: 'Scan QR Code',
                 onPress: () {

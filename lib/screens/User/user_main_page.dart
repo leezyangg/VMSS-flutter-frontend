@@ -124,9 +124,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
           icon: Icon(
-            Icons.home_outlined,
+            Icons.logout,
             color: Colors.grey[800],
-            size: 33,
+            size: 26,
           ),
         ),
       ],
