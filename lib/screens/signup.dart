@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vemdora_flutter_frontend/screens/login.dart';
 import 'package:vemdora_flutter_frontend/widgets/gradient_button.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:http/http.dart';
 import '../utils/config.dart';
 
@@ -224,11 +225,33 @@ class _SignUpState extends State<SignUp> {
               BlueGradientButton(
                 buttonText: 'Sign Up',
                 onPress: () {
-                  signup(
-                    emailController.text.toString(),
-                    usernameController.text.toString(),
-                    passwordController.text.toString(),
-                  );
+                  final bool isValid =
+                      EmailValidator.validate(emailController.text.toString());
+                  if (isValid) {
+                    signup(
+                      emailController.text.toString(),
+                      usernameController.text.toString(),
+                      passwordController.text.toString(),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Sign Up Failed'),
+                          content: const Text('Please enter the correct email'),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               ),
 
